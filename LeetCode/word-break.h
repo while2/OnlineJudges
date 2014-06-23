@@ -27,11 +27,11 @@ public:
         (*node)->end = true;
     }
     
-    vector<int> Match(const string &word, int start) {
+    vector<int> Match(const char *str) {
         vector<int> matches;
         Node *node = m_root;
-        for (int i = start; i < word.size(); ++i) {
-			char c = word[i];
+		for (int i = 0; str[i] != 0; ++i) {
+			char c = str[i];
             node = node->children[c-'a'];
 			if (node == nullptr)
 				return matches;
@@ -53,10 +53,10 @@ public:
         vector<bool> flags(s.size()+1, false);
         flags[s.size()] = true;
         for (int i = s.size()-1; i >= 0; i--) {
-            vector<int> matches = trie.Match(s, i);
+            vector<int> matches = trie.Match(&s[i]);
             bool ok = false;
             for (int pos : matches) {
-                if (flags[pos+1]) {
+                if (flags[i + pos + 1]) {
                     ok = true;
                     break;
                 }
