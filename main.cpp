@@ -2,17 +2,21 @@
 
 #ifdef LEETCODE
 
-#include "LeetCode\word-break-ii.h"
+#include "LeetCode\clone-graph.h"
 int main()
 {
-	auto input1 = "catsanddog";
-	char* input2[] = {"cat", "cats", "and", "sand", "dog"};
+	UndirectedGraphNode node0(0), node1(1), node2(2);
+	node0.neighbors.push_back(&node1);
+	node0.neighbors.push_back(&node2);
 
-	string s = input1;
-	unordered_set<string> dict;
-	for (auto word : input2)
-		dict.insert(word);
-	Solution().wordBreak(s, dict);
+	node1.neighbors.push_back(&node0);
+	node1.neighbors.push_back(&node2);
+
+	node2.neighbors.push_back(&node0);
+	node2.neighbors.push_back(&node1);
+	node2.neighbors.push_back(&node2);
+
+	auto clone = Solution().cloneGraph(&node0);
 }
 
 #endif
