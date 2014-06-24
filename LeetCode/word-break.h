@@ -1,19 +1,23 @@
+#include <string>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
 class Trie {
 private:
     struct Node {
         Node* children[26];
         bool end;
         
-        Node () {
+        Node() {
 			for (int i = 0; i < 26; ++i)
 				children[i] = nullptr;
-            //memset(children, sizeof(Node*)*26, 0);
             end = false;
         }
     };
     
 public:
-    Trie () {
+    Trie() {
         m_root = new Node;
     }
     void AddWord(const string &word) {
@@ -27,18 +31,16 @@ public:
         (*node)->end = true;
     }
     
-    vector<int> Match(const char *str) {
-        vector<int> matches;
+    void Match(const char *str, vector<int> &match_length) {
         Node *node = m_root;
 		for (int i = 0; str[i] != 0; ++i) {
 			char c = str[i];
             node = node->children[c-'a'];
 			if (node == nullptr)
-				return matches;
+				break;
 			else if (node->end)
-                matches.push_back(i);
+                match_length.push_back(i+1);
         }
-        return matches;
     }
     Node *m_root;
 };
@@ -53,10 +55,12 @@ public:
         vector<bool> flags(s.size()+1, false);
         flags[s.size()] = true;
         for (int i = s.size()-1; i >= 0; i--) {
-            vector<int> matches = trie.Match(&s[i]);
+            vector<int> match_length;
+			trie.Match(&s[i], match_length);
+
             bool ok = false;
-            for (int pos : matches) {
-                if (flags[i + pos + 1]) {
+            for (int len : match_length) {
+                if (flags[i + len]) {
                     ok = true;
                     break;
                 }
