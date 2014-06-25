@@ -8,7 +8,7 @@ struct RandomListNode {
 	RandomListNode *next, *random;
 	RandomListNode(int x) : label(x), next(nullptr), random(nullptr) {}
 };
-
+#include <stdio.h>
 #include <unordered_map>
 using namespace std;
 
