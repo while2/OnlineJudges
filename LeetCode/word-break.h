@@ -1,3 +1,8 @@
+/*
+ *	https://oj.leetcode.com/problems/word-break/
+ */
+
+#define LEETCODE
 #include <string>
 #include <vector>
 #include <unordered_set>

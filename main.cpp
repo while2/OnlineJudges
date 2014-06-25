@@ -1,8 +1,8 @@
-#define LEETCODE
-
-#ifdef LEETCODE
+#pragma warning (disable : 4996)
+#pragma warning (disable : 4018)
 
 #include "LeetCode\clone-graph.h"
+#ifdef LEETCODE
 int main()
 {
 	UndirectedGraphNode node0(0), node1(1), node2(2);
@@ -18,5 +18,15 @@ int main()
 
 	auto clone = Solution().cloneGraph(&node0);
 }
-
+#endif
+#ifdef HACKERRANK
+struct Test
+{
+	Test()
+	{
+		freopen("in.txt", "r", stdin);
+		freopen("out.txt", "w", stdout);
+	}
+};
+static Test test;
 #endif
