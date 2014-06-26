@@ -1,16 +1,14 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "LeetCode\surrounded-regions.h"
+#include "LeetCode\sum-root-to-leaf-numbers.h"
 #ifdef LEETCODE
 int main()
 {
-	char *input[] = {"XOXX","OXOX","XOXO","OXOX","XOXO","OXOX"};
-	vector<vector<char>> board;
-	for (int i = 0; i < sizeof(input) / sizeof(input[0]); ++i) {
-		board.push_back(vector<char>(input[i], input[i] + 4));
-	}
-	Solution().solve(board);
+	TreeNode node1(1), node2(2), node3(3);
+	node1.left = &node2;
+	node1.right = &node3;
+	Solution().sumNumbers(&node1);
 }
 #endif
 #ifdef HACKERRANK
