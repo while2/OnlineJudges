@@ -19,15 +19,27 @@ struct TreeNode {
 class Solution {
 public:
 	int sumNumbers(TreeNode *root) {
-		function<int(TreeNode*, int)> parse;
-		parse = [&](TreeNode *node, int pre)->int {
-			if (node == nullptr) return 0;
+		if (root == nullptr) return 0;
+		int sum = 0;
+		vector<TreeNode*> st(1, root);
+		vector<int> st2(1, 0);
+		while (!st.empty()) {
+			auto node = st.back(); st.pop_back();
+			int pre = st2.back(); st2.pop_back();
 			if (node->left == nullptr && node->right == nullptr)
-				return pre * 10 + node->val;
-			return (node->left ? parse(node->left, pre * 10 + node->val) : 0)
-				+ (node->right ? parse(node->right, pre * 10 + node->val) : 0);
-		};
-		int ans = parse(root, 0);
-		return ans;
+				sum += pre * 10 + node->val;
+			else {
+				if (node->left != nullptr) {
+					st.push_back(node->left);
+					st2.push_back(pre * 10 + node->val);
+				}
+				
+				if (node->right != nullptr) {
+					st.push_back(node->right);
+					st2.push_back(pre * 10 + node->val);
+				}
+			}
+		}
+		return sum;
 	}
 };
