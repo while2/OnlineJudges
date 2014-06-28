@@ -1,7 +1,7 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "Hackerrank\TheCaptchaCracker.h"
+#include "Hackerrank\matching-book-names-and-descriptions.h"
 #ifdef LEETCODE
 int main()
 {
@@ -17,7 +17,7 @@ struct Test
 	Test()
 	{
 		freopen("in.txt", "r", stdin);
-		freopen("out.txt", "w", stdout);
+		//freopen("out.txt", "w", stdout);
 	}
 };
 static Test test;
