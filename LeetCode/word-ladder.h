@@ -7,6 +7,7 @@
 #include <string>
 #include <functional>
 #include <unordered_set>
+#include <unordered_map>
 #include <queue>
 using namespace std;
 
@@ -17,24 +18,25 @@ public:
 		string word;
 		vector<Node*> neighbors;
 	};
-	vector<Node*> m_nodes;
-    bool IsNeighbor(const string &str1, const string &str2) {
-        int diff = 0;
-        for (int i = 0; i < str1.size(); ++i) {
-            if (str1[i] != str2[i])
-                if (diff++ > 0)
-                    return false;
-        }
-        return true;
-    }
+	vector<Node*> m_graph;
+
 	void BuildGraph(const unordered_set<string> &dict) {
-		for (auto word : dict)
-			m_nodes.push_back(new Node(word));
-		for (int i = 0; i < m_nodes.size(); ++i) {
-			for (int j = i+1; j < m_nodes.size(); ++j) {
-				if (IsNeighbor(m_nodes[i]->word, m_nodes[j]->word)) {
-					m_nodes[i]->neighbors.push_back(m_nodes[j]);
-					m_nodes[j]->neighbors.push_back(m_nodes[i]);
+		unordered_map<string, Node*> str_to_node(dict.size());
+		for (auto word : dict) {
+			auto node = new Node(word);
+			str_to_node[word] = node;
+			m_graph.push_back(node);
+		}
+		for (int i = 0; i < m_graph.size(); ++i) {
+			auto &word = m_graph[i]->word;
+			for (int j = 0; j < word.size(); ++j) {
+				for (char c = 'a'; c <= 'z'; ++c) {
+					if (word[j] == c) continue;
+					string word2 = word;
+					word2[j] = c;
+					auto it = str_to_node.find(word2);
+					if (it != str_to_node.end())
+						m_graph[i]->neighbors.push_back(it->second);
 				}
 			}
 		}
@@ -45,7 +47,7 @@ public:
 		queue<Node*> q;
 		queue<int> q2;
 		Node *dst = nullptr;
-		for (auto node : m_nodes) {
+		for (auto node : m_graph) {
 			if (node->word == start)
 				q.push(node);
 			if (node->word == end)
