@@ -1,14 +1,13 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "Hackerrank\matching-book-names-and-descriptions.h"
+#include "LeetCode\word-ladder.h"
 #ifdef LEETCODE
 int main()
 {
-	TreeNode node1(1), node2(2), node3(3);
-	node1.left = &node2;
-	node1.right = &node3;
-	Solution().sumNumbers(&node1);
+	char *dict[] = {"hot","dot","dog","lot","log"};
+
+	Solution().ladderLength("hit", "cog", unordered_set<string>(begin(dict), end(dict)));
 }
 #endif
 #ifdef HACKERRANK
