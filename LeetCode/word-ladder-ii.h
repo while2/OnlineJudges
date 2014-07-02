@@ -1,5 +1,5 @@
 /*
-*	https://oj.leetcode.com/problems/word-ladder/
+*	https://oj.leetcode.com/problems/word-ladder-ii/
 */
 
 #define LEETCODE
