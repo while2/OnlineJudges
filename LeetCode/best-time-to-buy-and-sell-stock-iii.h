@@ -13,7 +13,7 @@ using namespace std;
 class Solution {
 public:
 	int maxProfit(vector<int> &prices) {		
-	    if (prices.size() < 2) return 0;
+		if (prices.size() < 2) return 0;
 		vector<int> lower(prices), upper(prices);
 		for (int i = 1; i < lower.size(); ++i)
 			lower[i] = min(lower[i-1], prices[i]);
