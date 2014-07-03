@@ -1,13 +1,12 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "LeetCode\binary-tree-maximum-path-sum.h"
+#include "LeetCode\best-time-to-buy-and-sell-stock-iii.h"
 #ifdef LEETCODE
 int main()
 {
-	TreeNode node1(2), node2(-1), node3(3);
-	node1.left = &node2;//, node1.right = &node3;
-	Solution().maxPathSum(&node1);
+	int prices[] = {6,1,3,2,4,7};
+	int a = Solution().maxProfit(vector<int>(begin(prices), end(prices)));
 }
 #endif
 #ifdef HACKERRANK
