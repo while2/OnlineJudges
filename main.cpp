@@ -1,13 +1,14 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "LeetCode\path-sum-ii.h"
+#include "LeetCode\construct-binary-tree-from-inorder-and-postorder-traversal.h"
 #ifdef LEETCODE
 int main()
 {
-	TreeNode node1(0), node2(1), node3(1);
-	node1.left = &node2, node1.right = &node3;
-	Solution().pathSum(&node1, 1);
+	int inorder[] = {1,2,3,4};
+	int postorder[] = {1,4,3,2};
+
+	Solution().buildTree(vector<int>(begin(inorder), end(inorder)), vector<int>(begin(postorder), end(postorder)));
 }
 #endif
 #ifdef HACKERRANK
