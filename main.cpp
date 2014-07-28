@@ -5,7 +5,7 @@
 #ifdef LEETCODE
 int main()
 {
-	int height[] = {6, 2, 5, 4, 5, 1, 6};
+	int height[] = {1,0,1,0,1};
 	Solution().largestRectangleArea(vector<int>(begin(height), end(height)));
 	return 0;
 }
