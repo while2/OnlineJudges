@@ -1,23 +1,22 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "LeetCode/largest-rectangle-in-histogram.h"
+#include "GoogleCodeJam/Numbers.h"
+
 #ifdef LEETCODE
 int main()
 {
-    vector<int> height({0,0,0,0,0,0,0,0,2147483647});
-	Solution().largestRectangleArea(height);
-	return 0;
 }
 
 #endif
+#define HACKERRANK
 #ifdef HACKERRANK
 struct Test
 {
 	Test()
 	{
-		freopen("in.txt", "r", stdin);
-		//freopen("out.txt", "w", stdout);
+		freopen("in.in", "r", stdin);
+		freopen("out.txt", "w", stdout);
 	}
 };
 static Test test;
