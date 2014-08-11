@@ -1,16 +1,15 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "GoogleCodeJam/Numbers.h"
+#include "LeetCode/scramble-string.h"
 
 #ifdef LEETCODE
 int main()
 {
+	Solution().isScramble("tqxpxeknttgwoppemjkivrulaflayn", "afaylnlurvikjmeppowgttnkexpxqt");
 }
 
-#endif
-#define HACKERRANK
-#ifdef HACKERRANK
+#else
 struct Test
 {
 	Test()

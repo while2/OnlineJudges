@@ -1,66 +1,43 @@
-#include <stdint.h>
-
-#include <iostream>
-#include <vector>
+#include <stdio.h>
+#include <cmath>
+#include <list>
 #include <string>
-#include <unordered_map>
-#include <algorithm>
 using namespace std;
 
-struct Customer
-{
-	Customer() : malted(-1) {}
-	int malted;
-	vector<int> unmalted;
-	bool satisfied(const vector<int> &flavors) {
-		if (malted != -1 && flavors[malted] == 1)
-			return true;
-		for (auto id : unmalted)
-			if (flavors[id] == 0)
-				return true;
-		return false;
-	}
-};
-
 int main() {
-	int T; scanf("%d%*c", &T);
+	int T; scanf("%d\n", &T);
 	for (int t = 1; t <= T; ++t) {
-		int n, m; scanf("%d %d", &n, &m);
-		vector<Customer> customers(m);
-		for (int i = 0; i < m; ++i) {
-			int pairs; scanf("%d", &pairs);
-			while (pairs--) {
-				int a, b;
-				scanf("%d %d", &a, &b);
-				--a;
-				if (b == 1)
-					customers[i].malted = a;
-				else
-					customers[i].unmalted.push_back(a);
-			}
+		int n; scanf("%d\n", &n);
+		list<string> cards;
+		while (n--) {
+			char name[111];
+			scanf("%[^\n]\n", name);
+			cards.push_back(name);
 		}
-		printf("Case #%d: ", t);
-		vector<int> flavors(n, 0);
+
+		int cost = 0;
 		bool changed = true;
 		while (changed) {
 			changed = false;
-			for (auto customer : customers) {
-				if (!customer.satisfied(flavors)) {
-					if (customer.malted != -1) {
-						flavors[customer.malted] = 1;
-						changed = true;
-					}
-					else
-						goto impossible;
+			auto it1 = cards.begin();
+			auto it2 = it1; ++it2;
+
+			for (; it2 != cards.end(); ++it1) {
+				if (*it2 < *it1) {
+					// insert it2
+					cost++;
+					changed = true;
+					auto it3 = cards.begin();
+					while (*it3 < *it2)
+						++it3;
+					cards.insert(it3, *it2);
+					it2 = cards.erase(it2);
 				}
+				else
+					++it2;
 			}
 		}
-		for (auto i : flavors)
-			printf("%d ", i);
-		printf("\n");
-		continue;
-impossible:
-		printf("IMPOSSIBLE\n");
+		printf("Case #%d: %d\n", t, cost);
 	}
 	return 0;
 }
