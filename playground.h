@@ -2,42 +2,42 @@
 #include <cmath>
 #include <list>
 #include <string>
+#include <vector>
+#include <set>
+#include <stdint.h>
+#include <algorithm>
+#include <queue>
+#include <functional>
+#include <unordered_map>
 using namespace std;
-
-int main() {
-	int T; scanf("%d\n", &T);
-	for (int t = 1; t <= T; ++t) {
-		int n; scanf("%d\n", &n);
-		list<string> cards;
-		while (n--) {
-			char name[111];
-			scanf("%[^\n]\n", name);
-			cards.push_back(name);
-		}
-
-		int cost = 0;
-		bool changed = true;
-		while (changed) {
-			changed = false;
-			auto it1 = cards.begin();
-			auto it2 = it1; ++it2;
-
-			for (; it2 != cards.end(); ++it1) {
-				if (*it2 < *it1) {
-					// insert it2
-					cost++;
-					changed = true;
-					auto it3 = cards.begin();
-					while (*it3 < *it2)
-						++it3;
-					cards.insert(it3, *it2);
-					it2 = cards.erase(it2);
-				}
-				else
-					++it2;
-			}
-		}
-		printf("Case #%d: %d\n", t, cost);
-	}
-	return 0;
-}
+#define LEETCODE
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int> > &matrix) {
+        vector<int> flat;
+        if (matrix.size() == 0 || matrix[0].size() == 0) return flat;
+        
+        int m = matrix.size();
+        int n = matrix[0].size();
+        int t = 0, l = 0, b = m-1, r = n-1;
+        int moves[8] = {1, 0,   0, 1,   -1, 0,  0, -1};
+        int *turn[8] = {&r,&t,     &r,&b,    &l,&b,    &l,&t};
+        int x = 0, y = 0, v = 0;
+        if (n == 1)
+			v = 1;
+        for (int i = 0; i < m * n; ++i) {
+            flat.push_back(matrix[y][x]);
+            
+            x += moves[v*2];
+            y += moves[v*2+1];
+            
+            if (x == *turn[v*2] && y == *turn[v*2+1]) {
+                int v2 = (v+1)%4;
+                *turn[v*2] += moves[v2*2];
+                *turn[v*2+1] += moves[v2*2+1];
+				v = v2;
+            }
+        }
+        return flat;
+    }
+};

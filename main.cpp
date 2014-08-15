@@ -1,12 +1,21 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-#include "LeetCode/scramble-string.h"
+//#include "LeetCode/median-of-two-sorted-arrays.h"
+#include "GoogleCodeJam/ChargingChaos.h"
 
 #ifdef LEETCODE
 int main()
 {
-	Solution().isScramble("tqxpxeknttgwoppemjkivrulaflayn", "afaylnlurvikjmeppowgttnkexpxqt");
+	Solution().getPermutation(3, 2);
+	////int A[] = {1,2,3};
+	////int B[] = {6,7,8};
+	////Solution().findMedianSortedArrays(A, sizeof(A)/sizeof(int), B, sizeof(B)/sizeof(int));
+	//int arr[] = {3,2};
+	//vector<vector<int>> matrix;
+	//matrix.push_back(vector<int>(arr, arr+1));
+	//matrix.push_back(vector<int>(arr+1, arr+2));
+	//Solution().spiralOrder(matrix);
 }
 
 #else
