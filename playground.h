@@ -9,35 +9,117 @@
 #include <queue>
 #include <functional>
 #include <unordered_map>
+#include <unordered_set>
 using namespace std;
-#define LEETCODE
-class Solution {
-public:
-    vector<int> spiralOrder(vector<vector<int> > &matrix) {
-        vector<int> flat;
-        if (matrix.size() == 0 || matrix[0].size() == 0) return flat;
-        
-        int m = matrix.size();
-        int n = matrix[0].size();
-        int t = 0, l = 0, b = m-1, r = n-1;
-        int moves[8] = {1, 0,   0, 1,   -1, 0,  0, -1};
-        int *turn[8] = {&r,&t,     &r,&b,    &l,&b,    &l,&t};
-        int x = 0, y = 0, v = 0;
-        if (n == 1)
-			v = 1;
-        for (int i = 0; i < m * n; ++i) {
-            flat.push_back(matrix[y][x]);
-            
-            x += moves[v*2];
-            y += moves[v*2+1];
-            
-            if (x == *turn[v*2] && y == *turn[v*2+1]) {
-                int v2 = (v+1)%4;
-                *turn[v*2] += moves[v2*2];
-                *turn[v*2+1] += moves[v2*2+1];
-				v = v2;
-            }
-        }
-        return flat;
-    }
+
+struct Pos {
+	int x, y;
 };
+
+bool red_wins(vector<string> &board) {
+	int n = board.size();
+	vector<int> row(n, 1);
+	for (int i = 0; i < n; ++i) {
+		for (int j = 0; j < n; ++j) {
+			if (board[i][j] != 'R')
+				row[j] = 0;
+			else if (j+1 < n)
+				row[j] += row[j+1];
+		}
+	}
+
+	for (int i = 0; i < n; ++i) {
+		if (row[i] > 0)
+			return true;
+	}
+	return false;
+}
+
+bool blue_wins(vector<string> &board) {
+	int n = board.size();
+	vector<int> col(n, 1);
+	for (int j = 0; j < n; ++j) {
+		for (int i = 0; i < n; ++i) {
+			if (board[i][j] != 'B')
+				col[i] = 0;
+			else if (i+1 < n)
+				col[i] += col[i+1];
+		}
+	}
+
+	for (int i = 0; i < n; ++i) {
+		if (col[i] > 0)
+			return true;
+	}
+	return false;
+}
+
+int main() {
+	int T; scanf("%d", &T);
+	for (int t = 1; t <= T; ++t) {
+		int n; scanf("%d", &n);
+		vector<string> board(n);
+		int count_r = 0, count_b = 0;
+		for (int i = 0; i < n; ++i) {
+			board[i].resize(n+1);
+			scanf("%s", board[i].data());
+			for (int j = 0; j < n; ++j) {
+				if (board[i][j] == 'R')
+					count_r++;
+				if (board[i][j] == 'B')
+					count_b++;
+			}
+		}
+
+		if (abs(count_r - count_b) > 1) {
+impossible:
+			printf("Case #%d: Impossible\n", t);
+			continue;
+		}
+
+		if (red_wins(board)) {
+			if (count_r < count_b)
+				goto impossible;
+			for (int i = 0; i < n; ++i) {
+				for (int j = 0; j < n; ++j) {
+					if (board[i][j] == 'R') {
+						board[i][j] = '.';
+						if (!red_wins(board)) {
+							goto red;
+						}
+						board[i][j] = 'R';
+					}
+				}
+			}
+			goto impossible;
+		}
+		
+		if (blue_wins(board)) {
+			if (count_b < count_r)
+				goto impossible;
+			for (int i = 0; i < n; ++i) {
+				for (int j = 0; j < n; ++j) {
+					if (board[i][j] == 'B') {
+						board[i][j] = '.';
+						if (!blue_wins(board))
+							goto blue;
+						board[i][j] = 'B';
+					}
+				}
+			}
+			goto impossible;
+		}
+
+		printf("Case #%d: Nobody wins\n", t);
+		continue;
+
+red:
+		printf("Case #%d: Red wins\n", t);
+		continue;
+blue:
+		printf("Case #%d: Blue wins\n", t);
+		continue;
+
+	}
+	return 0;
+}
