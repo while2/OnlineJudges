@@ -2,11 +2,14 @@
 #pragma warning (disable : 4018)
 
 //#include "LeetCode/median-of-two-sorted-arrays.h"
-#include "LeetCode/palindrome-number.h"
+#include "GoogleCodeJam/DragonMaze.h"
+
 #ifdef LEETCODE
 int main()
 {
-	Solution().isPalindrome(1410110141);
+	int arr[] = {1,1};
+	vector<int> vec(begin(arr), end(arr));
+	Solution().combinationSum2(vec, 2);
 	////int A[] = {1,2,3};
 	////int B[] = {6,7,8};
 	////Solution().findMedianSortedArrays(A, sizeof(A)/sizeof(int), B, sizeof(B)/sizeof(int));
@@ -16,7 +19,6 @@ int main()
 	//matrix.push_back(vector<int>(arr+1, arr+2));
 	//Solution().spiralOrder(matrix);
 }
-
 #else
 struct Test
 {
