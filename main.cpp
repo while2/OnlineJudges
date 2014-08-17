@@ -2,12 +2,11 @@
 #pragma warning (disable : 4018)
 
 //#include "LeetCode/median-of-two-sorted-arrays.h"
-#include "GoogleCodeJam/ChargingChaos.h"
-
+#include "LeetCode/palindrome-number.h"
 #ifdef LEETCODE
 int main()
 {
-	Solution().getPermutation(3, 2);
+	Solution().isPalindrome(1410110141);
 	////int A[] = {1,2,3};
 	////int B[] = {6,7,8};
 	////Solution().findMedianSortedArrays(A, sizeof(A)/sizeof(int), B, sizeof(B)/sizeof(int));
