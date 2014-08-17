@@ -2,7 +2,7 @@
 #pragma warning (disable : 4018)
 
 //#include "LeetCode/median-of-two-sorted-arrays.h"
-#include "GoogleCodeJam/DragonMaze.h"
+#include "GoogleCodeJam/Hex.h"
 
 #ifdef LEETCODE
 int main()
