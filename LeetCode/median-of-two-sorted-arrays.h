@@ -6,46 +6,72 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <algorithm>
 #include <unordered_map>
 using namespace std;
 class Solution {
 public:
-	double 
     double findMedianSortedArrays(int A[], int m, int B[], int n) {
 		auto result = [&](int a, int b) -> double {
-			if ((m + n) % 2 == 0) {
-				if (a == m) return 0.5 * (B[b] + B[b+1]);
-				if (b == n) return 0.5 * (A[b] + A[b+1]);			
-				return 0.5 * (A[a] + B[b]);
-			}
-			else {
-				if (a == m) return B[b];
-				if (b == n) return A[a];
-				return min(A[a], B[b]);
-			}
-		};
-		int k = (m + n - 1) / 2;
-		int sa = 0, ea = m, sb = 0, eb = n;
-		while (true) {
-			int ma = (sa + ea) / 2;
-			int mb = (sb + eb) / 2;
-
-			if (ea - sa <= 1 && eb - sb <= 1) {
-				return result(ma, mb);
-			}
+			vector<int> candidates;
+			candidates.push_back(A[a]);
+			candidates.push_back(B[b]);
 			
-			if (ma + mb < k) {
-				if (A[ma] < B[mb]) {
-					sa = ma;
-				}
+			if (a+1 < m)
+				candidates.push_back(A[a+1]);
+			if (b+1 < n)
+				candidates.push_back(B[b+1]);
+			
+			sort(begin(candidates), end(candidates));
+			if ((m + n) % 2 == 0)
+				return (candidates[0] + candidates[1]) * 0.5;
+			else
+				return candidates[0];
+		};
+
+		int k = (m + n - 1) / 2;
+
+		if (m == 0)
+			return result(0, k);
+		if (n == 0)
+			return result(k, 0);
+
+		if (A[m-1] < B[0]) {
+			if (m > k)
+				return result(k, 0);
+			else
+				return result(m, k-m);
+		}
+		if (A[0] > B[n-1]) {
+			if (n > k)
+				return result(0, k);
+			else
+				return result(k-n, n);
+		}
+
+		int a1 = 0, a2 = m, b1 = 0, b2 = n;
+		for (;;) {
+			int a = (a1+a2)/2;
+			int b = (b1+b2)/2;
+
+			if (a + b == k) {
+				return result(a, b);
+			}
+			else if (a + b > k) {
+				if (A[a-1] < B[b-1])
+					b2 = b;
 				else
-					sb = mb;
+					a2 = a;
 			}
 			else {
-				if (A[ma] < B[mb])
-					eb = mb;
-				else
-					ea = ma;
+				if (A[a-1] < B[b-1]) {
+					k -= (a1 - a);
+					a1 = a;
+				}
+				else {
+					k -= (b1 - b);
+					b1 = b;
+				}
 			}
 		}
     }
