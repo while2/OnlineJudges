@@ -1,5 +1,5 @@
 /*
-*	https://oj.leetcode.com/problems/substring-with-concatenation-of-all-words/
+*	https://oj.leetcode.com/problems/zigzag-conversion/
 */
 
 #define LEETCODE
