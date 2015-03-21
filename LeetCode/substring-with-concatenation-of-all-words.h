@@ -14,47 +14,39 @@ using namespace std;
 
 class Solution {
 public:
-	struct MatchState {
-		MatchState() : count(0), start(0) {}
-		
-		unordered_map<string, int> dict;
-		int count, start;
-	};
-
     vector<int> findSubstring(string S, vector<string> &L) {
 		unordered_map<string, int> dict;
 		for (auto &str : L)
 			dict[str]++;
-		vector<int> ans;
-		int len = L[0].size();
-		vector<MatchState> matches(S.size()+1);
-		for (int i = len; i < matches.size(); ++i) {
-			string str = S.substr(i-len, len);
-			if (dict[str] == 0) continue;
-
-			matches[i] = matches[i-len];
-			if (matches[i].count == 0)
-				matches[i].start = i - len;
-		
-			if (matches[i].dict[str] < dict[str]) {
-				matches[i].dict[str]++;
-				matches[i].count++;
-			}
-			else {
-				int start = matches[i].start;
-				while (start < i) {
-					string s = S.substr(start, len);
-					if (s == str) break;
-					matches[i].dict[s]--;
-					matches[i].count--;
-					start += len;
-				}
-				matches[i].start = start + len;
-			}
-			if (matches[i].count == L.size())
-				ans.push_back(matches[i].start);
-		}	
-
+			
+	    vector<int> ans;
+		for (int start = 0; start < L[0].size(); ++start) {
+		    unordered_map<string, int> dict2;
+		    int s = start, count = 0;
+		    for (int i = start; i < S.size(); i += L[0].size()) {
+		        string str = S.substr(i, L[0].size());
+		        if (dict[str] == 0) {
+					dict2.clear();
+		            count = 0;
+		            s = i + L[0].size();
+		            continue;
+		        }
+		        dict2[str]++;
+				count++;
+		        if (dict2[str] > dict[str]) {
+		            for (;;) {
+		                string head = S.substr(s, L[0].size());
+		                dict2[head]--;
+		                count--;
+						s+=L[0].size();
+		                if (head == str)
+		                    break;
+		            }
+		        }
+		        if (count == L.size())
+		            ans.push_back(s);
+		    }
+		}
         return ans;
     }
 };

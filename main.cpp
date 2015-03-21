@@ -1,23 +1,12 @@
 #pragma warning (disable : 4996)
 #pragma warning (disable : 4018)
 
-//#include "LeetCode/median-of-two-sorted-arrays.h"
-#include "GoogleCodeJam/Hex.h"
-
+#include "LeetCode\fraction-to-recurring-decimal.h"
 #ifdef LEETCODE
+#include <set>
 int main()
 {
-	int arr[] = {1,1};
-	vector<int> vec(begin(arr), end(arr));
-	Solution().combinationSum2(vec, 2);
-	////int A[] = {1,2,3};
-	////int B[] = {6,7,8};
-	////Solution().findMedianSortedArrays(A, sizeof(A)/sizeof(int), B, sizeof(B)/sizeof(int));
-	//int arr[] = {3,2};
-	//vector<vector<int>> matrix;
-	//matrix.push_back(vector<int>(arr, arr+1));
-	//matrix.push_back(vector<int>(arr+1, arr+2));
-	//Solution().spiralOrder(matrix);
+	cout << Solution().fractionToDecimal(-2147483648, 1);
 }
 #else
 struct Test
